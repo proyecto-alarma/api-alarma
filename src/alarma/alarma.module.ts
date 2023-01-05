@@ -6,12 +6,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Alarma, AlarmaSchema } from './entities/alarma.entity';
 import { ColaboradoresService } from 'src/colaboradores/colaboradores.service';
 import { ColaboradoresModule } from 'src/colaboradores/colaboradores.module';
+import { SendMailModule } from 'src/send-mail/send-mail.module';
 
 @Module({
   controllers: [AlarmaController],
   providers: [AlarmaService,],
   imports:[
     CommonModule,
+    SendMailModule,
     ColaboradoresModule,
     MongooseModule.forFeature([
       {

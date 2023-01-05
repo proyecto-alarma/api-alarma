@@ -11,22 +11,18 @@ export class SendMailService {
   ){
 
   }
-async  create(createSendMailDto: CreateSendMailDto) {
+async  create(email: string, message:string) {
 try {
   let d= await this.mailservice.sendMail({
     from:"ar2224518@gmail.com",
-    to:"amestr367@gmail.com",
-    subject:"email simple",
-    text:"es un email simpleeee.",
+    to:email,
+    subject:"Alarma activada!!!",
+    text:message,
   })
-  console.log(d);
-  
+  console.log(d); 
 } catch (error) {
   console.log(error, 222);
-  
-  
 }
-
     return 'This action adds a new sendMail';
   }
 

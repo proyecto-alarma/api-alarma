@@ -4,6 +4,7 @@ import { SendMailController } from './send-mail.controller';
 
 @Module({
   controllers: [SendMailController],
-  providers: [SendMailService]
+  providers: [SendMailService],
+  exports:[SendMailService,]
 })
 export class SendMailModule {}

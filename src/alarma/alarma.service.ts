@@ -6,6 +6,7 @@ import { Colaboradore } from 'src/colaboradores/entities/colaboradore.entity';
 import { ResponseBase } from 'src/common/model/response-base.model';
 import { ModeEnum } from 'src/common/utils/enums/mode.enum';
 import { SupervisionEnum } from 'src/common/utils/enums/status.enum';
+import { SendMailService } from 'src/send-mail/send-mail.service';
 import { CreateAlarmaDto } from './dto/create-alarma.dto';
 import { UpdateAlarmaDto } from './dto/update-alarma.dto';
 import { Alarma } from './entities/alarma.entity';
@@ -16,22 +17,28 @@ export class AlarmaService {
   constructor(
     @InjectModel(Alarma.name)
     private readonly alarmaModel:Model<Alarma>,
-    private readonly colService:ColaboradoresService
+    private readonly colService:ColaboradoresService,
+    private readonly sendMail:SendMailService
 
   ){}
   async create(createAlarmaDto: CreateAlarmaDto) {
-
+    let getCollabortors;
     //se tiene la lista de coaboradores en caso de que haya intruso
     if(createAlarmaDto.status==SupervisionEnum.INTRUSO ){
-        let getCollabortors = await this.colService.findAll();
-
-        console.log(getCollabortors);
+      getCollabortors = await this.colService.findAll();
         
     }
  
     //se detecta intruso  es tando la alarma activa
     if(createAlarmaDto.status==SupervisionEnum.INTRUSO  && createAlarmaDto.mode== ModeEnum.ACTIVO ){
       //notificar que existe un intrusos
+      getCollabortors.forEach( element => {
+          console.log(element.email,111);
+       this.sendMail.create(element.email,"Ups, se ha activado la alarma!!!. Posible intruso...");
+
+          
+      });
+      
     }
     //intruso con modo desactivado
     if(createAlarmaDto.status==SupervisionEnum.INTRUSO  && createAlarmaDto.mode== ModeEnum.NOACTIVO ){

@@ -9,7 +9,6 @@ export class SendMailController {
 
   @Post()
   create(@Body() createSendMailDto: CreateSendMailDto) {
-    return this.sendMailService.create(createSendMailDto);
   }
 
   @Get()
