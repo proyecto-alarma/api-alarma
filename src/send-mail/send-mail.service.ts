@@ -14,22 +14,25 @@ export class SendMailService {
 
   constructor(
     private readonly mailservice: MailerService
-  ) {}
+  ) { }
   async create(email: string, message: string) {
     try {
       const tokenMessages: firebase.messaging.TokenMessage = {
         notification: { body: message, title: "a", },
-        token: "e7-wCyC5RW6l-8Fi4sWkx7:APA91bEs0yuwcjkQ2VfldfQEzZSR3u0nao1W5c0Gw8TkqHKHHV3OYxPJojHxPqpuksOsvuRTq0pHRFIP8IhNaayzTYEXmyMUXlRgKbwtsmVIed3r89tAbf7HMuR0oFqhw3b6zntm_unq",
+        token: "fEWZMr77RJG_booUl4xctt:APA91bF_QiqFzIT0x0vM_Ec7izdtWFhhyj8sAkP4Tnxz3zb9LXj-PSyo1BI-zTLa2Dc_z7HNngH6fK1ZmNDWuqqeV-7ejQJ3vbqZxy-2-FCEKv7BcH-qqyf_FZWGYHRCVhdwrUSP3grO",
         apns: {
           payload: {
             aps: {
               'content-available': 1,
+              sound: "alarma",
+              _channel_id: "ARoSistemas", 
             },
+
           },
         },
       };
-   firebase.messaging().send(tokenMessages);
-     await this.mailservice.sendMail({
+      firebase.messaging().send(tokenMessages);
+      await this.mailservice.sendMail({
         from: "ar2224518@gmail.com",
         to: email,
         subject: "Alarma activada!!!",
