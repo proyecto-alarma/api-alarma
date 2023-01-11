@@ -17,14 +17,15 @@ export class ColaboradoresService {
         await this.colModel.create(createColaboradoreDto);
     return new ResponseBase("201", "Colaborador creado con éxito.", {});
 
-      } catch (error) {
+      } catch (error) { 
+ 
         if(error.code===11000){
             throw new BadRequestException(new ResponseBase('200', 'Ya existe un usuario con este email', error.keyValue))
         }
-          
+           
       }
-  }
-
+  } 
+ 
   async findAll() {
     return await this.colModel.find();
   }
