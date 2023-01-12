@@ -53,11 +53,8 @@ async  findAll() {
     if(!token){
       
       return new BadRequestException({}, "Falta el token");
-    }
-    console.log("sss");
-    
+    }    
     let getModes = await this.modeModel.find();
-
     if(getModes.length>0){
       let decodeToken =await this.configurationModel.decodeToken(token);
 

@@ -8,6 +8,7 @@ import { ColaboradoresService } from 'src/colaboradores/colaboradores.service';
 import { ColaboradoresModule } from 'src/colaboradores/colaboradores.module';
 import { SendMailModule } from 'src/send-mail/send-mail.module';
 import { ModeModule } from 'src/mode/mode.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
   controllers: [AlarmaController],
@@ -15,7 +16,7 @@ import { ModeModule } from 'src/mode/mode.module';
   imports:[
     CommonModule,
     SendMailModule,
-    ColaboradoresModule,
+    UserModule,
     ModeModule,
     MongooseModule.forFeature([
       {

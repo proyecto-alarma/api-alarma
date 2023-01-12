@@ -11,6 +11,7 @@ import { CreateAlarmaDto } from './dto/create-alarma.dto';
 import { UpdateAlarmaDto } from './dto/update-alarma.dto';
 import { Alarma } from './entities/alarma.entity';
 import { ModeService } from 'src/mode/mode.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AlarmaService {
@@ -18,9 +19,10 @@ export class AlarmaService {
   constructor(
     @InjectModel(Alarma.name)
     private readonly alarmaModel:Model<Alarma>,
-    private readonly colService:ColaboradoresService,
     private readonly sendMail:SendMailService,
     private readonly modeService:ModeService,
+    private readonly userService:UserService,
+
 
   ){}
   async create(createAlarmaDto: CreateAlarmaDto) {
@@ -28,6 +30,15 @@ export class AlarmaService {
     let mode = await this.modeService.findAll();
 
     console.log(mode, 1232);
+    if(mode[0].mode===ModeEnum.ACTIVO){
+      
+      let users = await this.userService.findAll();
+      console.log(users, 312432);
+      users.forEach( (element: { email: string; token:string; }) => {
+        this.sendMail.create(element.email,"Ups, se ha activado la alarma!!!. Posible intruso...", element.token);          
+       });
+      
+    }
     
     let getCollabortors;
     //se tiene la lista de coaboradores en caso de que haya intruso
@@ -38,13 +49,11 @@ export class AlarmaService {
     // //se detecta intruso  es tando la alarma activa
     // if(createAlarmaDto.status==SupervisionEnum.INTRUSO  && createAlarmaDto.mode== ModeEnum.ACTIVO ){
     //   //notificar que existe un intrusos
-    //   getCollabortors.forEach( (element: { email: string; }) => {
-    //    this.sendMail.create(element.email,"Ups, se ha activado la alarma!!!. Posible intruso...");          
-    //   });
+    
     // }
 
    try {
-    await  this.alarmaModel.create(createAlarmaDto)
+    // await  this.alarmaModel.create(createAlarmaDto)
     return new ResponseBase("201", "Registro creado con éxito.", {});
    } catch (error) {
     return new ResponseBase("500", "No fue posible crear el registro.", {});   }

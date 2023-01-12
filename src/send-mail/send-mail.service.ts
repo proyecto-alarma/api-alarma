@@ -1,6 +1,5 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-import { SNS } from 'aws-sdk';
 import { UpdateSendMailDto } from './dto/update-send-mail.dto';
 import * as firebase from 'firebase-admin';
 export interface ISendFirebaseMessages {
@@ -15,11 +14,11 @@ export class SendMailService {
   constructor(
     private readonly mailservice: MailerService
   ) { }
-  async create(email: string, message: string) {
+  async create(email: string, message: string, token:string) {
     try {
       const tokenMessages: firebase.messaging.TokenMessage = {
         notification: { body: message, title: "a", },
-        token: "fEWZMr77RJG_booUl4xctt:APA91bF_QiqFzIT0x0vM_Ec7izdtWFhhyj8sAkP4Tnxz3zb9LXj-PSyo1BI-zTLa2Dc_z7HNngH6fK1ZmNDWuqqeV-7ejQJ3vbqZxy-2-FCEKv7BcH-qqyf_FZWGYHRCVhdwrUSP3grO",
+        token: token,
         apns: {
           payload: {
             aps: {
@@ -31,13 +30,13 @@ export class SendMailService {
           },
         },
       };
-      firebase.messaging().send(tokenMessages);
-      await this.mailservice.sendMail({
-        from: "ar2224518@gmail.com",
-        to: email,
-        subject: "Alarma activada!!!",
-        text: message,
-      })
+      // firebase.messaging().send(tokenMessages);
+      // await this.mailservice.sendMail({
+      //   from: "ar2224518@gmail.com",
+      //   to: email,
+      //   subject: "Alarma activada!!!",
+      //   text: message,
+      // })
     } catch (error) {
       console.log(error, 222);
     }
