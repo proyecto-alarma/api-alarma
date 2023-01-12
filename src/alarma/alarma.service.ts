@@ -10,6 +10,7 @@ import { SendMailService } from 'src/send-mail/send-mail.service';
 import { CreateAlarmaDto } from './dto/create-alarma.dto';
 import { UpdateAlarmaDto } from './dto/update-alarma.dto';
 import { Alarma } from './entities/alarma.entity';
+import { ModeService } from 'src/mode/mode.service';
 
 @Injectable()
 export class AlarmaService {
@@ -18,33 +19,30 @@ export class AlarmaService {
     @InjectModel(Alarma.name)
     private readonly alarmaModel:Model<Alarma>,
     private readonly colService:ColaboradoresService,
-    private readonly sendMail:SendMailService
+    private readonly sendMail:SendMailService,
+    private readonly modeService:ModeService,
 
   ){}
   async create(createAlarmaDto: CreateAlarmaDto) {
+
+    let mode = await this.modeService.findAll();
+
+    console.log(mode, 1232);
+    
     let getCollabortors;
     //se tiene la lista de coaboradores en caso de que haya intruso
-    if(createAlarmaDto.status==SupervisionEnum.INTRUSO ){
-      getCollabortors = await this.colService.findAll();
-        
-    }
- 
-    //se detecta intruso  es tando la alarma activa
-    if(createAlarmaDto.status==SupervisionEnum.INTRUSO  && createAlarmaDto.mode== ModeEnum.ACTIVO ){
-      //notificar que existe un intrusos
-      getCollabortors.forEach( element => {
-          console.log(element.email,111);
-       this.sendMail.create(element.email,"Ups, se ha activado la alarma!!!. Posible intruso...");
+    // if(createAlarmaDto.status==SupervisionEnum.INTRUSO ){
+    //   getCollabortors = await this.colService.findAll();        
+    // }
 
-          
-      });
-      
-    }
-    //intruso con modo desactivado
-    if(createAlarmaDto.status==SupervisionEnum.INTRUSO  && createAlarmaDto.mode== ModeEnum.NOACTIVO ){
-      //validar la hora, puede que este desactivado porque este en horario de oficina,
-      //validar el horario de oficina, si ya no se esta en horario laboral y la alarma esta en modo inactivo y el detect intruso. notificas
-    }
+    // //se detecta intruso  es tando la alarma activa
+    // if(createAlarmaDto.status==SupervisionEnum.INTRUSO  && createAlarmaDto.mode== ModeEnum.ACTIVO ){
+    //   //notificar que existe un intrusos
+    //   getCollabortors.forEach( (element: { email: string; }) => {
+    //    this.sendMail.create(element.email,"Ups, se ha activado la alarma!!!. Posible intruso...");          
+    //   });
+    // }
+
    try {
     await  this.alarmaModel.create(createAlarmaDto)
     return new ResponseBase("201", "Registro creado con éxito.", {});
@@ -52,19 +50,4 @@ export class AlarmaService {
     return new ResponseBase("500", "No fue posible crear el registro.", {});   }
   }
 
-  findAll() {
-    return `This action returns all alarma`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} alarma`;
-  }
-
-  update(id: number, updateAlarmaDto: UpdateAlarmaDto) {
-    return `This action updates a #${id} alarma`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} alarma`;
-  }
 }

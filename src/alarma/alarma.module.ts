@@ -7,6 +7,7 @@ import { Alarma, AlarmaSchema } from './entities/alarma.entity';
 import { ColaboradoresService } from 'src/colaboradores/colaboradores.service';
 import { ColaboradoresModule } from 'src/colaboradores/colaboradores.module';
 import { SendMailModule } from 'src/send-mail/send-mail.module';
+import { ModeModule } from 'src/mode/mode.module';
 
 @Module({
   controllers: [AlarmaController],
@@ -15,6 +16,7 @@ import { SendMailModule } from 'src/send-mail/send-mail.module';
     CommonModule,
     SendMailModule,
     ColaboradoresModule,
+    ModeModule,
     MongooseModule.forFeature([
       {
         name: Alarma.name,

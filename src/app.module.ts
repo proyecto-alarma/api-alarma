@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ColaboradoresModule } from './colaboradores/colaboradores.module';
 import { SendMailModule } from './send-mail/send-mail.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { ModeModule } from './mode/mode.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 import * as AWS from 'aws-sdk';
 
 
@@ -29,7 +32,10 @@ AWS.config.update({
           pass: 'xhvzrmnsfikuypsa',
         }
       }
-    },)
+    },),
+    ModeModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

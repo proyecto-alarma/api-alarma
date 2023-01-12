@@ -13,5 +13,7 @@ export class Colaboradore extends Document {
 
     @Prop()
     phone:string;
+    @Prop()
+    role:string;
 }
 export const ColaboradoreSchema = SchemaFactory.createForClass(Colaboradore);

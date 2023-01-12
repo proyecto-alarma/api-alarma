@@ -12,20 +12,21 @@ export class ColaboradoresService {
     @InjectModel(Colaboradore.name)
     private readonly colModel:Model<Colaboradore>
   ){}
+
+  //crea los colaboradores
   async create(createColaboradoreDto: CreateColaboradoreDto) {
       try {
-        await this.colModel.create(createColaboradoreDto);
+        await this.colModel.create({...createColaboradoreDto,role:"COLLABORATOR"});
     return new ResponseBase("201", "Colaborador creado con éxito.", {});
-
       } catch (error) { 
- 
         if(error.code===11000){
             throw new BadRequestException(new ResponseBase('200', 'Ya existe un usuario con este email', error.keyValue))
         }
            
       }
   } 
- 
+
+
   async findAll() {
     return await this.colModel.find();
   }
