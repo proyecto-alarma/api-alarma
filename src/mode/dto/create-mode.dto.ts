@@ -7,4 +7,7 @@ export class CreateModeDto {
 
     @IsEnum(ModeEnum)
     mode:ModeEnum;
+
+    @IsEnum(SupervisionEnum)
+    status:SupervisionEnum;
 }

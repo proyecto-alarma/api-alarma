@@ -17,7 +17,7 @@ export class ModeController {
   }
 
 
-  @Get()
+  @Get('get-mode')
   findAll() {
     return this.modeService.findAll();
   }

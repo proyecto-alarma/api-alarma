@@ -13,7 +13,7 @@ export class UserController {
     ) {
     return this.userService.create(createUserDto, headers.headers);
   }
-  @Get()
+  @Get('get-all')
   findAll() {
     return this.userService.findAll();
   }

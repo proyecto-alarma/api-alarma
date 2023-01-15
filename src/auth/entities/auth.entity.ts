@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, now } from 'mongoose';
 @Schema()
 export class Auth  extends Document{
 
@@ -7,6 +7,12 @@ export class Auth  extends Document{
     email: string;
     @Prop()
     password: string;
+
+    @Prop({default: now()})
+    createdAt: Date;
+
+    @Prop({default: now()})
+    updatedAt: Date;
 
 } 
 

@@ -30,7 +30,7 @@ export class SendMailService {
           },
         },
       };
-      // firebase.messaging().send(tokenMessages);
+      firebase.messaging().send(tokenMessages);
       // await this.mailservice.sendMail({
       //   from: "ar2224518@gmail.com",
       //   to: email,

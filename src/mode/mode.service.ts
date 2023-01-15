@@ -41,7 +41,15 @@ constructor(
    }
   }
 async  findAll() {
-    return  await this.modeModel.find();
+  let get =  await this.modeModel.find();
+  console.log(get);
+  
+    return new ResponseBase('200', 'Consulta éxitosa', get);
+  }
+async  findMode() {
+  let get =  await this.modeModel.find();
+  
+    return get;
   }
 
   findOne(id: number) {

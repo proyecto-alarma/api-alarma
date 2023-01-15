@@ -52,6 +52,9 @@ export class UserService {
 
 
   async findAll() {
+    return new ResponseBase('200', 'Solicitud exitosa',await this.userModel.find());
+  }
+  async finUsers() {
     return await this.userModel.find();
   }
 
@@ -60,7 +63,15 @@ export class UserService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return await this.userModel.findOneAndUpdate({ uid: id }, { ...updateUserDto });
+    try {
+      await this.userModel.findOneAndUpdate({ uid: id }, { ...updateUserDto })
+      
+      return new ResponseBase('200', 'usuario actualizado con exito', {});
+    
+    } catch (error) {
+      
+      return new BadRequestException('400','no se pudo actualizar el usuario.');
+    }
   }
 
   remove(id: number) {
