@@ -50,7 +50,6 @@ export class UserService {
     }
   }
 
-
   async findAll(role:string) {
     return new ResponseBase('200', 'Solicitud exitosa',await this.userModel.find({role}));
   }
@@ -61,7 +60,6 @@ export class UserService {
   async findOne(id: string) {
     return await this.userModel.findOne({ uid: id });
   }
-
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
       await this.userModel.findOneAndUpdate({ uid: id }, { ...updateUserDto })

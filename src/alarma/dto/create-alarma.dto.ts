@@ -21,12 +21,6 @@ export class CreateAlarmaDto {
     @IsString()
     detail:string;
 
-    @IsNotEmpty()
-    @IsDate()
-    @Transform( ({ value }) => value && new Date(value))
-
-    @MinDate(new Date())
-    dateUpd:Date;
 
 
 }

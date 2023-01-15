@@ -19,7 +19,7 @@ AWS.config.update({
 });
 @Module({
   imports: [AlarmaModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/alarma'),
+    MongooseModule.forRoot('mongodb+srv://alarm_project_:A9LXbAGXxQPvuRU2@cluster0.iesz9tr.mongodb.net/?retryWrites=true&w=majority'),
     ColaboradoresModule,
     SendMailModule,
     MailerModule.forRoot({
@@ -29,7 +29,7 @@ AWS.config.update({
         secure: true,
         auth: {
           user: 'ar2224518@gmail.com',
-          pass: 'xhvzrmnsfikuypsa',
+          pass: 'akdaaejelvbkirfx',
         }
       }
     },),

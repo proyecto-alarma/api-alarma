@@ -11,11 +11,10 @@ export class Alarma extends Document{
     @Prop()
     mode:ModeEnum;
 
-    @Prop()
+    @Prop() 
     detail:string;
 
-    @Prop()
-    dateUpd:Date;
+    
 
     @Prop({default: now()})
     createdAt: Date;

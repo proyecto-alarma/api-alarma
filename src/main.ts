@@ -27,6 +27,11 @@ async function bootstrap() {
     credential: admin.credential.cert(adminConfig)
   },);
 
-  await app.listen(3000);
+  await app.listen(3000,()=>{
+    console.log('Running int port 3000');
+    
+  });
+console.log("aaaaa");
+
 }
-bootstrap();
+bootstrap(); 

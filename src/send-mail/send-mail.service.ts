@@ -15,11 +15,17 @@ export class SendMailService {
     private readonly mailservice: MailerService
   ) { }
   async create(email: string, message: string, token:string) {
-    try {
+    try {      
+
+      console.log(token);
+      console.log(new Date());
+
+       
+      
       const tokenMessages: firebase.messaging.TokenMessage = {
         notification: { body: message, title: "a", },
         token: token,
-        apns: {
+        apns: { 
           payload: {
             aps: {
               'content-available': 1,
@@ -31,13 +37,16 @@ export class SendMailService {
         },
       };
       firebase.messaging().send(tokenMessages);
-      // await this.mailservice.sendMail({
-      //   from: "ar2224518@gmail.com",
-      //   to: email,
-      //   subject: "Alarma activada!!!",
-      //   text: message,
-      // })
-    } catch (error) {
+      if(email!="ar2224518@gmail.com"){
+        await this.mailservice.sendMail({
+          from: "ar2224518@gmail.com",
+          to: email,
+          subject: "Alarma activada!!!",
+          text: message,
+          
+        })
+      }
+    } catch (error) { 
       console.log(error, 222);
     }
     return 'This action adds a new sendMail';

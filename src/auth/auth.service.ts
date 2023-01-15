@@ -13,7 +13,7 @@ export class AuthService {
   constructor(
     @InjectModel(Auth.name)
     private readonly authModel: Model<Auth>,
-    private readonly userservice:UserService,
+    private readonly userservice: UserService,
     private readonly configurationService: ConfigurationService,
   ) { }
   async register(createAuthDto: CreateAuthDto) {
@@ -40,18 +40,16 @@ export class AuthService {
       let token = this.configurationService.create({
         id: findCredentdial.id,
         email: findUSer.email,
-        role:findUSer.role
+        role: findUSer.role,
+        changePassword: findCredentdial.password === "123456"
       });
-
-      let createSessionDto =   {
+      let createSessionDto = {
         token: token["access_token"],
       };
-      return  new  ResponseBase('201','Login exitoso',createSessionDto);
+      return new ResponseBase('201', 'Login exitoso', createSessionDto);
     } catch (error) {
-
     }
   }
-
   findAll() {
     return `This action returns all auth`;
   }
@@ -60,10 +58,14 @@ export class AuthService {
     return `This action returns a #${id} auth`;
   }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
+  async update(id: string, updateAuthDto: UpdateAuthDto) {
+    try {
+      await this.authModel.findByIdAndUpdate({ _id: id }, { ...updateAuthDto })
+      return new ResponseBase('200', 'Actualización exitosa.', {});
+    } catch (error) {
+      return new ResponseBase('400', 'ha ocurrido algo inesperado', {});
+    }
   }
-
   remove(id: number) {
     return `This action removes a #${id} auth`;
   }
