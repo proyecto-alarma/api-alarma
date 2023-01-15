@@ -51,8 +51,8 @@ export class UserService {
   }
 
 
-  async findAll() {
-    return new ResponseBase('200', 'Solicitud exitosa',await this.userModel.find());
+  async findAll(role:string) {
+    return new ResponseBase('200', 'Solicitud exitosa',await this.userModel.find({role}));
   }
   async finUsers() {
     return await this.userModel.find();

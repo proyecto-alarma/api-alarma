@@ -11,6 +11,10 @@ export class AlarmaController {
   create(@Body() createAlarmaDto: CreateAlarmaDto) {
     return this.alarmaService.create(createAlarmaDto);
   }
+  @Get('report')
+  getAll() {
+    return this.alarmaService.getAll();
+  }
 
 
 }

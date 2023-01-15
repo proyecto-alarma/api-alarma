@@ -22,9 +22,9 @@ export class ModeController {
     return this.modeService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.modeService.findOne(+id);
+  @Get('get-historyMode')
+  findOne() {
+    return this.modeService.getHistoeyMode();
   }
 
   @Patch('update-mode')

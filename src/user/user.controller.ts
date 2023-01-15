@@ -13,9 +13,11 @@ export class UserController {
     ) {
     return this.userService.create(createUserDto, headers.headers);
   }
-  @Get('get-all')
-  findAll() {
-    return this.userService.findAll();
+  @Get('get-all/:role')
+  findAll(
+    @Param('role') role:string
+  ) {
+    return this.userService.findAll(role);
   }
 
   @Get(':id')

@@ -45,4 +45,13 @@ console.log(createAlarmaDto);
     return new ResponseBase("500", "No fue posible crear el registro.", {});   }
   }
 
+
+  async getAll(){
+    let get = await this.alarmaModel.find();
+    return new ResponseBase('200', 'Consulta exitosa', {
+      "total":get.length,
+      "modes":get
+    });
+  }
+
 }
