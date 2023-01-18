@@ -10,6 +10,7 @@ import { ModeModule } from './mode/mode.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import * as AWS from 'aws-sdk';
+import { ConfigModule } from '@nestjs/config/dist/config.module';
 
 
 AWS.config.update({
@@ -18,19 +19,20 @@ AWS.config.update({
   secretAccessKey: "zzPKFhzSGD8KHJa0Px4p472undBPwRuYlj2AzaD1",
 });
 @Module({ 
-  
+
   imports: [AlarmaModule,
-    MongooseModule.forRoot('mongodb+srv://alarm_project_:A9LXbAGXxQPvuRU2@cluster0.iesz9tr.mongodb.net/?retryWrites=true&w=majority'),
     ColaboradoresModule,
     SendMailModule,
+    ConfigModule.forRoot({envFilePath: '.env' }),
+    MongooseModule.forRoot(process.env.URI_DATABASE),
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
-          user: 'ar2224518@gmail.com',
-          pass: 'akdaaejelvbkirfx',
+          user: process.env.USER_ID,
+          pass: process.env.PASS_USSER_ID,
         }
       }
     },),
