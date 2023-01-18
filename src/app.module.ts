@@ -17,7 +17,8 @@ AWS.config.update({
   accessKeyId: "AKIAWEYLBAIEGD2HQ3OH",
   secretAccessKey: "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",
 });
-@Module({
+@Module({ 
+  
   imports: [AlarmaModule,
     MongooseModule.forRoot('mongodb+srv://alarm_project_:A9LXbAGXxQPvuRU2@cluster0.iesz9tr.mongodb.net/?retryWrites=true&w=majority'),
     ColaboradoresModule,
