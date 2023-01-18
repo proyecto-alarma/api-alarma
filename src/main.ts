@@ -31,7 +31,6 @@ async function bootstrap() {
     console.log('Running int port',process.env.PORT);
     
   });
-console.log("aaaaa");
-
+ 
 }
 bootstrap(); 
