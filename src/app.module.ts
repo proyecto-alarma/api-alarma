@@ -24,7 +24,7 @@ AWS.config.update({
     ColaboradoresModule,
     SendMailModule,
     ConfigModule.forRoot({envFilePath: '.env' }),
-    MongooseModule.forRoot(process.env.URI_DATABASE || "mongodb+srv://alarm_project_:A9LXbAGXxQPvuRU2@cluster0.iesz9tr.mongodb.net/?retryWrites=true&w=majority"),
+    MongooseModule.forRoot(process.env.URI_DATABASE),
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
