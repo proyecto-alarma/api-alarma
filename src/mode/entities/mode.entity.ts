@@ -6,8 +6,6 @@ import { ModeEnum } from "src/common/utils/enums/mode.enum";
 @Schema()
 export class Mode extends Document{
 
-@Prop()
-status:SupervisionEnum;
 
 @Prop()
 mode:ModeEnum;

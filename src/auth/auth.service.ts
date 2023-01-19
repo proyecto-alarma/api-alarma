@@ -36,12 +36,11 @@ export class AuthService {
         return new ResponseBase('200', 'No se encontro información con estas credenciales.', {});
       }
       let findUSer = await this.userservice.findOne(findCredentdial.id);
-      console.log(findUSer, '----', findCredentdial);
       let token = this.configurationService.create({
         id: findCredentdial.id,
         email: findUSer.email,
         role: findUSer.role,
-        changePassword: findCredentdial.password === "123456"
+        changePassword: findCredentdial.password === process.env.PASS_DEFAULT
       });
       let createSessionDto = {
         token: token["access_token"],

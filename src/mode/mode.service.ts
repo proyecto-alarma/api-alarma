@@ -9,6 +9,7 @@ import { ResponseBase } from '../common/model/response-base.model';
 import { HistoryMode } from './entities/history-mode.entity';
 import { ConfigurationService } from '../configuration/configuration.service';
 import { HistoryModeDto } from './dto/history-mode.dto';
+import { ModeEnum } from 'src/common/utils/enums/mode.enum';
 
 @Injectable()
 export class ModeService {
@@ -53,13 +54,8 @@ export class ModeService {
     let get = await this.modeModel.find();
     return get;
   }
-
-
-
   async getHistoeyMode() {
- 
   }
-
   async update(updateModeDto: UpdateModeDto, headers: any) {
     let { token } = headers;
     if (!token) {
@@ -81,8 +77,17 @@ export class ModeService {
       return new ResponseBase('200', 'Solicitud exitosa', {});
     }
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} mode`;
+async seed(){
+try {
+  let modes = await this.modeModel.find();
+  if(modes.length==0){
+    await this.modeModel.create({mode:ModeEnum.ACTIVO});
+  }else{
+    return new ResponseBase('200','Ya existe un modo',{});
   }
+} catch (error) {
+  
+}
+}
+
 }

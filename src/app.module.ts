@@ -11,20 +11,21 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import * as AWS from 'aws-sdk';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
+import { SeedModule } from './seed/seed.module';
 
 
 AWS.config.update({
   region: "us-east-1",
   accessKeyId: "AKIAWEYLBAIEGD2HQ3OH",
   secretAccessKey: "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",
-});
+},);
 @Module({ 
-
   imports: [AlarmaModule,
     ColaboradoresModule,
     SendMailModule,
     ConfigModule.forRoot({envFilePath: '.env' }),
     MongooseModule.forRoot(process.env.URI_DATABASE),
+    // MongooseModule.forRoot(process.env.URI_LOCAL),
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
@@ -39,6 +40,7 @@ AWS.config.update({
     ModeModule,
     AuthModule,
     UserModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

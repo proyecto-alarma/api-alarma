@@ -32,8 +32,5 @@ export class ModeController {
     return this.modeService.update(updateModeDto, headers.headers);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.modeService.remove(+id);
-  }
+
 }
