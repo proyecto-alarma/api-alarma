@@ -8,6 +8,11 @@ import { Status, StatusSchema } from 'src/commons/schema/status.schema';
 import { Mode, ModeSchema } from 'src/commons/schema/mode.schema';
 import { HistoryMode, HistoryModeSchema } from 'src/commons/schema/history.mode.schema';
 import { HistoryStatus, HistoryStatusSchema } from 'src/commons/schema/history.status.schema';
+import { UserService } from './user.service';
+import { AuthService } from './auth.service';
+import { SeedService } from './seed.service';
+import { User, UserSchema } from 'src/commons/schema/user.schema';
+import { CredentialSchema, Credential } from 'src/commons/schema/credential.schema';
 
 @Module({
   imports:[
@@ -32,9 +37,19 @@ import { HistoryStatus, HistoryStatusSchema } from 'src/commons/schema/history.s
         schema: HistoryStatusSchema,
         collection: 'coll_history_status',
       },
+      {
+        name: User.name,
+        schema: UserSchema,
+        collection: 'coll_user',
+      },
+      {
+        name: Credential.name,
+        schema: CredentialSchema,
+        collection: 'coll_credential',
+      },
     ])
   ],
-  providers: [HistoryStatusService, HistoryModeService, ModeService, StatusService],
-  exports: [HistoryStatusService, HistoryModeService, ModeService, StatusService],
+  providers: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService, SeedService],
+  exports: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService,],
 })
 export class ServiceModule {}

@@ -18,7 +18,7 @@ export class HistoryModeService {
         try {
             await this.historyMode.create(history);
         } catch (error) {
-
+            
         }
     }
     async getHistoryStatus() {
