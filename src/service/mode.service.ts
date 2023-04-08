@@ -4,6 +4,9 @@ import { Mode } from 'src/commons/schema/mode.schema';
 import { HistoryModeService } from './history-mode.service';
 import { Imodo } from 'src/commons/interface/modo.interface';
 import { Model } from 'mongoose';
+import { ModoEnum } from 'src/commons/enum/modo.enum';
+import { SendEmailService } from './send-email.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class ModeService {
@@ -11,11 +14,23 @@ export class ModeService {
     constructor(
         @InjectModel(Mode.name)
         private readonly modeModel: Model<Mode>,
-        private readonly historyStatusService: HistoryModeService
+        private readonly historyStatusService: HistoryModeService,
+        private readonly sendMailService: SendEmailService,
+        private readonly userService: UserService,
+
     ) { }
-    async createStatus(istatus: Imodo) {
+    async createMode(istatus: Imodo) {
         try {
+            if (istatus.modo == ModoEnum.INTRUSO) {
+            let users = await this.userService.getUsers();
+            users.forEach(e => {
+                
+                this.sendMailService.sendEMail(e.email, 'Alarma activada, por favor revise');
+            });
+            }
+           
             const lastResult = await this.modeModel.findOne().sort({ $natural: -1 });
+           
             if (!lastResult) {
                 await this.modeModel.create(istatus)
             } else {
@@ -23,23 +38,26 @@ export class ModeService {
             }
             await this.historyStatusService.createHistory({
                 currentMode: istatus.modo,
-                lastMode: lastResult==null?istatus.modo:lastResult.modo,
+                lastMode: lastResult == null ? istatus.modo : lastResult.modo,
                 date: new Date()
             });
 
-        } catch (error) {
+        } catch (e) {
+
+        console.log(e);
+        
         }
     }
 
 
-   async geStatus(){
+    async geStatus() {
         try {
             const lastResult = await this.modeModel.findOne().sort({ $natural: -1 });
 
             return lastResult;
 
         } catch (error) {
-            
+
         }
     }
 }

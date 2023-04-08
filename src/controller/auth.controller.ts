@@ -10,4 +10,8 @@ export class AuthController {
    async  login(@Body() icredential:Icredential){
         return await this.credentialService.login(icredential);
     }
+    @Post('/v1/update-password')
+   async  updatePassword(@Body() icredential:Icredential){
+        return await this.credentialService.updatePassword(icredential);
+    }
 }

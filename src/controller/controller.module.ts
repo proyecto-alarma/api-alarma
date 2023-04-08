@@ -7,9 +7,10 @@ import { ServiceModule } from 'src/service/service.module';
 import { AuthController } from './auth.controller';
 import { UserController } from './user.controller';
 import { SeedController } from './seed.controller';
+import { EventController } from './event.controller';
 
 @Module({
-  controllers: [StatusController, ModeController, HistoryModeController, HistoryStatusController, AuthController, UserController, SeedController],
+  controllers: [StatusController, ModeController, HistoryModeController, HistoryStatusController, AuthController, UserController, SeedController, EventController],
   imports:[ServiceModule,]
 })
 export class ControllerModule {}

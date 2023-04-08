@@ -11,10 +11,10 @@ import { Imodo } from "../interface/modo.interface";
 export class Mode implements Imodo {
 
 
-    @Prop({ enum: ModoEnum, type: String, })
+    @Prop({ enum: ModoEnum, type: String, required:true })
     modo: ModoEnum;
     
-}
+} 
 
 export const ModeSchema =
     SchemaFactory.createForClass(Mode);

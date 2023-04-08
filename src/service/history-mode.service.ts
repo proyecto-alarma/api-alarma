@@ -17,7 +17,8 @@ export class HistoryModeService {
     async createHistory(history: IhistoryNode) {
         try {
             await this.historyMode.create(history);
-        } catch (error) {
+        } catch (e) {
+         console.log(e);
             
         }
     }

@@ -13,6 +13,11 @@ import { AuthService } from './auth.service';
 import { SeedService } from './seed.service';
 import { User, UserSchema } from 'src/commons/schema/user.schema';
 import { CredentialSchema, Credential } from 'src/commons/schema/credential.schema';
+import { EventService } from './event.service';
+import { SendEmailService } from './send-email.service';
+import { JwtServices } from './jwt.service';
+import { ConfigurationModule } from 'src/commons/config/config.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports:[
@@ -47,9 +52,14 @@ import { CredentialSchema, Credential } from 'src/commons/schema/credential.sche
         schema: CredentialSchema,
         collection: 'coll_credential',
       },
-    ])
+    ]),
+    JwtModule.register({
+      secret: process.env.keyjwt,
+      privateKey:process.env.keyjwt2,
+      signOptions: { expiresIn: '3d', },
+    })
   ],
-  providers: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService, SeedService],
+  providers: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService, SeedService, EventService, SendEmailService, JwtServices],
   exports: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService,],
 })
 export class ServiceModule {}

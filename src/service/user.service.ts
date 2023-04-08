@@ -36,4 +36,15 @@ export class UserService {
             throw new BadRequestException(e.message);
         }
     }
+
+
+    async getUsers(){
+
+
+        try {
+            return await this.userModel.find();
+        } catch (error) {
+            
+        }
+    }
 }

@@ -9,7 +9,7 @@ export class ModeController {
 
     @Post('/v1/create-mode')
     async create(@Body() istatus: Imodo) {
-        return await this.statusService.createStatus(istatus);
+        return await this.statusService.createMode(istatus);
     }
     @Get('/v1/get-mode')
     async getStatus() {

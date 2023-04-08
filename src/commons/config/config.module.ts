@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { validate } from './env.valitation';
 import config from './config';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
@@ -22,10 +23,11 @@ import { MailerModule } from '@nestjs-modules/mailer';
                 secure: true,
                 auth: {
                     user: process.env.USER_ID,
-                    pass: process.env.PASS_USSER_ID,
+                    pass: process.env.PASS_USER_ID,
                 }
             }
         },),
+    
 
     ],
 })
