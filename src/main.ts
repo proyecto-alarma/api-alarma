@@ -9,7 +9,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new PipeResponseBase(),
-
   );
   app.setGlobalPrefix('api/alarma')
   app.enableCors();
