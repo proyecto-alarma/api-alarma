@@ -22,7 +22,7 @@ export class StatusService {
             }
             await this.historyStatusService.createHistory({
                 currentStatus: istatus.status,
-                lastStatus: lastResult.status,
+                lastStatus: lastResult == null ? istatus.status : lastResult.status,
                 date: new Date()
             });
 
@@ -31,14 +31,14 @@ export class StatusService {
     }
 
 
-   async geStatus(){
+    async geStatus() {
         try {
             const lastResult = await this.statusModel.findOne().sort({ $natural: -1 });
 
             return lastResult;
 
         } catch (error) {
-            
+
         }
     }
 

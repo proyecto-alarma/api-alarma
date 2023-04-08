@@ -10,18 +10,24 @@ export class HistoryStatusService {
     constructor(
         @InjectModel(HistoryStatus.name)
         private readonly historStatus: Model<HistoryStatus>,
-    ) {}
+    ) { }
 
 
 
 
-async createHistory(history:IhistoryStatus){
-
-    try {
+    async createHistory(history: IhistoryStatus) {
+        try {
             await this.historStatus.create(history);
-    } catch (error) {
-        
+        } catch (error) {
+
+        }
     }
-}
+    async getHistoryStatus() {
+        try {
+            return await this.historStatus.find();
+        } catch (error) {
+
+        }
+    }
 
 }
