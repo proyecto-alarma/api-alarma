@@ -11,7 +11,7 @@ async function bootstrap() {
     new PipeResponseBase(),
 
   );
-  app.setGlobalPrefix('api/v1/')
+  app.setGlobalPrefix('api/alarma')
   app.enableCors();
 
   const adminConfig: ServiceAccount = {

@@ -1,0 +1,4 @@
+export enum StatusEnum{
+    CONECTADO='CONECTADO',
+    DESCONECTADO='DESCONECTADO'
+}
