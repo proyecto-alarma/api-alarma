@@ -7,6 +7,7 @@ import { Model } from 'mongoose';
 import { ModoEnum } from 'src/commons/enum/modo.enum';
 import { SendEmailService } from './send-email.service';
 import { UserService } from './user.service';
+import { ResponseBase } from 'src/common/model/response-base.model';
 
 @Injectable()
 export class ModeService {
@@ -41,7 +42,7 @@ export class ModeService {
                 lastMode: lastResult == null ? istatus.modo : lastResult.modo,
                 date: new Date()
             });
-
+            return new ResponseBase("OK", "Petición exitosa",{});
         } catch (e) {
 
             console.log(e);
@@ -50,11 +51,11 @@ export class ModeService {
     }
 
 
-    async geStatus() {
+    async geMode() {
         try {
             const lastResult = await this.modeModel.findOne().sort({ $natural: -1 });
 
-            return lastResult;
+            return new ResponseBase('OK', 'Modo consultado correctamentoe', lastResult);
 
         } catch (error) {
 

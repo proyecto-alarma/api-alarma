@@ -13,6 +13,6 @@ export class ModeController {
     }
     @Get('/v1/get-mode')
     async getStatus() {
-        return await this.statusService.geStatus();
+        return await this.statusService.geMode();
     }
 }

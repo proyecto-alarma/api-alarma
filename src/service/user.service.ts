@@ -6,6 +6,7 @@ import { User } from 'src/commons/schema/user.schema';
 import { AuthService } from './auth.service';
 import { ResponseBase } from 'src/common/model/response-base.model';
 import { RoleEnum } from 'src/commons/enum/role.enum';
+import { log } from 'console';
 
 @Injectable()
 export class UserService {
@@ -19,7 +20,6 @@ export class UserService {
         try {
             if (iuser.role == "ADMIN") findAdmin = await this.userModel.findOne({ role: iuser.role });
             if (findAdmin) throw new BadRequestException();
-
             let create = await this.userModel.create(iuser);
             await this.credentialService.createCredential({
                 email: iuser.email,
@@ -39,28 +39,44 @@ export class UserService {
     }
 
 
-    async getUsers(){
+    async getUsers() {
+        try {
+            let result = await this.userModel.find({ role: RoleEnum.COLLABORATOR });
+            return new ResponseBase('OK', 'Consulta exitosa', result);
+        } catch (error) {
+            throw new BadRequestException("Ups, algo ha salido mal");
+
+        }
+    }
+    async getUsers2() {
 
 
         try {
-            let result = await this.userModel.find({role:RoleEnum.COLLABORATOR});
-            return  new ResponseBase('OK', 'Consulta exitosa', result); 
+            return this.userModel.find();
         } catch (error) {
-            
+            throw new BadRequestException("Ups, algo ha salido mal");
+
         }
     }
-    async getUsers2(){
 
-
+    async getUserById(id: string) {
         try {
-            return  this.userModel.find(); 
+
+            let result = await this.userModel.findById({ _id: id });
+            return new ResponseBase('OK', 'Consulta exitosa', result);
         } catch (error) {
-            
+
+            throw new BadRequestException("Ups, algo ha salido mal");
         }
     }
 
-    async getUserById(id:string){
-        let result = await this.userModel.findById({_id:id});
-        return  new ResponseBase('OK', 'Consulta exitosa', result); 
+
+    async updateUser(id: string, iuser: Iuser) {
+        try {
+            await this.userModel.findByIdAndUpdate({ _id: id }, { ...iuser });
+            return new ResponseBase('OK', 'Cambio de estado exitoso', {});
+        } catch (error) {
+            throw new BadRequestException("Ups, algo ha salido mal");
+        }
     }
 }

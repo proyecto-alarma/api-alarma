@@ -9,6 +9,7 @@ import { Cron } from '@nestjs/schedule';
 import * as moment from 'moment-timezone';
 import { UserService } from './user.service';
 import { SendEmailService } from './send-email.service';
+import { ResponseBase } from 'src/common/model/response-base.model';
 
 
 
@@ -36,6 +37,7 @@ export class StatusService {
                 lastStatus: lastResult == null ? istatus.status : lastResult.status,
                 date: new Date()
             });
+            return new ResponseBase("OK", "Petición exitosa",{});
 
         } catch (error) {
         }
@@ -46,7 +48,7 @@ export class StatusService {
         try {
             const lastResult = await this.statusModel.findOne().sort({ $natural: -1 });
 
-            return lastResult;
+            return new ResponseBase("OK", "Estado consultado correctamente",lastResult);
 
         } catch (error) {
 
