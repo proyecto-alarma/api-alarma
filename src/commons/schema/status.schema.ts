@@ -3,7 +3,7 @@ import { StatusEnum } from "../enum/status.enum";
 import { Istatus } from "../interface/status.interface";
 
 @Schema({
-    timestamps: { createdAt: 'registrationDate', updatedAt: true },
+    timestamps: { createdAt: 'registrationDate', updatedAt: true, },
     toJSON: {
         getters: true,
     },

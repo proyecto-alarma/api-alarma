@@ -22,20 +22,20 @@ export class ModeService {
     async createMode(istatus: Imodo) {
         try {
             if (istatus.modo == ModoEnum.INTRUSO) {
-            let users = await this.userService.getUsers();
-            users.forEach(e => {
-                
-                this.sendMailService.sendEMail(e.email, 'Alarma activada, por favor revise');
-            });
+                let users = await this.userService.getUsers2();
+                users.forEach(e => {
+                        this.sendMailService.sendEMail(e.email, 'Alarma activada, por favor revise');
+                        this.sendMailService.sendNotification(e.tokenDevice,"Alarma activada!", 'Por favor revise', 'alert');
+                });
             }
-           
+
             const lastResult = await this.modeModel.findOne().sort({ $natural: -1 });
-           
             if (!lastResult) {
                 await this.modeModel.create(istatus)
             } else {
                 await this.modeModel.updateOne(istatus);
-            }
+            } 
+            
             await this.historyStatusService.createHistory({
                 currentMode: istatus.modo,
                 lastMode: lastResult == null ? istatus.modo : lastResult.modo,
@@ -44,8 +44,8 @@ export class ModeService {
 
         } catch (e) {
 
-        console.log(e);
-        
+            console.log(e);
+
         }
     }
 

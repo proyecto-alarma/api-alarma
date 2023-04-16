@@ -7,4 +7,5 @@ export default registerAs('general', () => ({
     PASS_USER_ID: process.env.PASS_USER_ID,
     PORT: process.env.PORT,
     PASS_DEFAULT: process.env.PASS_DEFAULT,
+    TIMEZOME: process.env.TIMEZOME,
 }));

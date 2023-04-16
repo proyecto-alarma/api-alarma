@@ -28,6 +28,9 @@ class EnvironmentVariables {
   @IsString() 
   PASS_DEFAULT: string;
 
+  @IsString() 
+  TIMEZOME: string;
+
   
 
 

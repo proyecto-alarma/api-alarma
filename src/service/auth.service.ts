@@ -6,12 +6,15 @@ import { Icredential } from 'src/commons/interface/credential.interface';
 import { Credential } from 'src/commons/schema/credential.schema';
 import { JwtServices } from './jwt.service';
 import { log } from 'console';
+import { User } from 'src/commons/schema/user.schema';
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectModel(Credential.name)
         private readonly crendentialModel: Model<Credential>,
+        @InjectModel(User.name)
+        private readonly userModel: Model<User>,
         private readonly jwt: JwtServices,
     ) { }
 
@@ -29,12 +32,14 @@ export class AuthService {
             if (!findUser) throw new BadRequestException();
     
             if (findUser.password !== icredential.password) throw new BadRequestException();
-            if(this.isupdatepassword(icredential))return new ResponseBase("200", 'Por favor actualice contraseña', {  })
+            if(this.isupdatepassword(icredential))return new ResponseBase("UPDATE_PASSWORD", 'Por favor actualice contraseña', {  })
 
             let token = await this.jwt.create({
-                id: findUser._id.toString()
+                id: findUser.userId.toString()
             })
-            return new ResponseBase("200", 'Login exitoso', { token })
+
+                   await this.userModel.findOneAndUpdate({email:icredential.email},{tokenDevice:icredential.tokenDevice})
+            return new ResponseBase("OK", 'Login exitoso', { token })
         } catch (e) {
 
             if (e.status === 400) throw new BadRequestException('No existe usuario con estas credenciales');
@@ -56,7 +61,7 @@ export class AuthService {
             if(!findUser) throw new BadRequestException();
 
             await this.crendentialModel.updateOne({email:icredential.email},{password:icredential.password});
-
+            return new ResponseBase("OK", 'Actualización exitosa',)
         } catch (e) {
             if (e.status === 400) throw new BadRequestException('No existe usuario con este email');
         }

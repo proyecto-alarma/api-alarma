@@ -5,6 +5,7 @@ import { Iuser } from 'src/commons/interface/user.interface';
 import { User } from 'src/commons/schema/user.schema';
 import { AuthService } from './auth.service';
 import { ResponseBase } from 'src/common/model/response-base.model';
+import { RoleEnum } from 'src/commons/enum/role.enum';
 
 @Injectable()
 export class UserService {
@@ -25,7 +26,7 @@ export class UserService {
                 password: process.env.PASS_DEFAULT,
                 userId: create._id.toString(),
             });
-            return new ResponseBase('201', 'Usuario creado con éxito', {})
+            return new ResponseBase('OK', 'Usuario creado con éxito', {})
         } catch (e) {
             if (e.code === 11000) {
                 throw new BadRequestException("Ya existe un usuario con este email");
@@ -42,9 +43,24 @@ export class UserService {
 
 
         try {
-            return await this.userModel.find();
+            let result = await this.userModel.find({role:RoleEnum.COLLABORATOR});
+            return  new ResponseBase('OK', 'Consulta exitosa', result); 
         } catch (error) {
             
         }
+    }
+    async getUsers2(){
+
+
+        try {
+            return  this.userModel.find(); 
+        } catch (error) {
+            
+        }
+    }
+
+    async getUserById(id:string){
+        let result = await this.userModel.findById({_id:id});
+        return  new ResponseBase('OK', 'Consulta exitosa', result); 
     }
 }

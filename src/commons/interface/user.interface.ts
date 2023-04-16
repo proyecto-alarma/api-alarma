@@ -6,5 +6,6 @@ export interface Iuser {
     phoneNumber: string;
     role: RoleEnum;
     email: string;
-    tokenDevice:string;
+    status: string;
+    tokenDevice?:string;
 }

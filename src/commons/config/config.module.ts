@@ -5,6 +5,7 @@ import { validate } from './env.valitation';
 import config from './config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { JwtModule } from '@nestjs/jwt';
+import mongoose from 'mongoose';
 
 @Module({
     imports: [
@@ -15,7 +16,12 @@ import { JwtModule } from '@nestjs/jwt';
             load: [config],
             expandVariables: true,
         }),
-        MongooseModule.forRoot(process.env.DATABASE_URL),
+        MongooseModule.forRoot(process.env.DATABASE_URL,{
+ 
+        },),
+        
+
+        
         MailerModule.forRoot({
             transport: {
                 host: 'smtp.gmail.com',

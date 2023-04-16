@@ -6,7 +6,6 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { CommonsModule } from './commons/commons.module';
 import { ControllerModule } from './controller/controller.module';
-import { ServiceModule } from './service/service.module';
 
 
 

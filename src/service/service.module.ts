@@ -18,9 +18,11 @@ import { SendEmailService } from './send-email.service';
 import { JwtServices } from './jwt.service';
 import { ConfigurationModule } from 'src/commons/config/config.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports:[
+  imports: [
+    ScheduleModule.forRoot(),
     MongooseModule.forFeature([
       {
         name: Status.name,
@@ -55,11 +57,13 @@ import { JwtModule } from '@nestjs/jwt';
     ]),
     JwtModule.register({
       secret: process.env.keyjwt,
-      privateKey:process.env.keyjwt2,
+      privateKey: process.env.keyjwt2,
       signOptions: { expiresIn: '3d', },
     })
   ],
-  providers: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService, SeedService, EventService, SendEmailService, JwtServices],
+  providers: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService, SeedService, EventService, SendEmailService, JwtServices,
+
+  ],
   exports: [HistoryStatusService, HistoryModeService, ModeService, StatusService, UserService, AuthService,],
 })
-export class ServiceModule {}
+export class ServiceModule { }

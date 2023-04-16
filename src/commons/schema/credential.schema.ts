@@ -17,6 +17,9 @@ export class Credential implements Icredential{
     @Prop()
     password: string;
     
+    @Prop()
+    tokenDevice: string;
+    
     @Prop({unique:true})
     userId: string;
 }

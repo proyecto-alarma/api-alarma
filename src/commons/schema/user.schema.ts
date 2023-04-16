@@ -9,7 +9,9 @@ import { RoleEnum } from "../enum/role.enum";
     },
 })
 export class User implements Iuser {
-    @Prop({required:true})
+    @Prop()
+    status: string;
+    @Prop()
     tokenDevice: string;
 
     @Prop()

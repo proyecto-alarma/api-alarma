@@ -1,0 +1,13 @@
+import * as admin from 'firebase-admin';
+
+
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId: "alarma-83d84",
+    privateKey: "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDYpwdJAno1kNCI\nYQt5b1JmeRRNo5ugTFgAPNXfNecgsKAVpU1vnp2a7bKKclSFUiENqsxTqq7CkRsp\nH5VdVgTu2GGiGA/MJeewtdIlx5PcKIUqhir9xMjPnl7aVsqI3qPtxRFp2vpidysd\nJteZ2HdTn/o0bo0QxUh/MB5GvO/sfqCSQsBDfxwl2LGl9FByeE5hrRMfm1q+TIYa\nlFg7pamHPmIVm4hV5Klg961FfB65aGGsL1ubk/zHb3su7nJ+RkceF14nOKVFfwz0\nJkMPxR8YmRBPa6py5ksuKWqG6UzgBsvztC25J4+9DXQNiY6k0j52qrYf9roHnWJb\nls4WCHVzAgMBAAECggEAS2P4K4ZSq5AsmMCYYxYDaQhKMeg0cBgQ6WhCDk3uE1iT\nJGUk6Kob8v0zC21Ujx4wxVZBiv3SmX8wIePNMLENv2WJuAPCf4pTMRFcQuxLvilV\niaItlKglLuZP4I+iI/XBuqxAboMWbSxF0vugu/bxMybwxM0Rhpv4KdY/OuNlY/ha\naKX+8y/OnrhNJoPQTwAmc26nH8/iSYbOTwa034mbRO5WaiaWd5NsKdrOsTduxz7J\nIi/pOueP/Q87YUtsG8JKIy0hpxmhN991jdLCQWtE7Xve2qzBTn4ttJi2/P/ZsBq7\nVR5I1UGJKbtxBzNTCPqJMN0AOB8yFZiVX0u+QokZIQKBgQD2oipmoq1ajrdON24+\nlBWFEDpc/J0NFCuUVh79yOnOlxH9WpxWUZ8VOQ6+ELTFbffPcFHLMdTTWopRBUjn\nQSrxXOnJ5P6B76w7UZGgR+S3mC2aoOEJYC8ZZunrNf6AU5D8bZS+i2zk3jOyHKAa\n8QrOaJJfHrAg2kYY67l+n08MYQKBgQDg4WE2fDMIIVaE/fTIK7CXBaF+Fr8UvePQ\nHCxYPVoRUauLfeQ98Rmg9f8krBvHyh9yZ5Z4HisvRyzsatLFoBlJmoDvWwPgbSuX\nAeiSl4AndrZLnq85XWR6Zz/n9k1gx7P0d+BhyUwdiknuAS9LJEGillAM561i/TAZ\nd3w3TEyyUwKBgAUK88r9cIX1fRIAWCS3amk6F7dnAt8NloaF7ERMI1uyAxAnFiM9\nr/8DF6YTOV8ADJ0VMtbwweVAaKuXbBIuZu5gc/dI01tcxyy/UjbwwWBvoB8VQwSq\nDsx6KjZA+F8vVjuTEgODXkqfsHbn1u42F3547OU8/2TskZpY14YbQ8aBAoGADZ54\npbUV3hsuwzUiGvFSa4MCycEU52usnVDnepyUlNHuYq9IIFw2oiHjxtPJhur9xo7x\ndOrW0LEtzk+V3jQY8/Uwc85+SJwz9Jw/+ojEUR+GYMQGdqHqUONp4mFvRDoz8s1D\nwIhRXMSgP5LAy3sxomgaBv4M6R7OR+yNkEfFqVMCgYBrIRD1SuIHEk1NQZDg1ldQ\nxjEoJ148x64yjPiZoRp64ugITkHhj4UL3WayNNDHM/tjZzlQZ2toFeoQ0+BvmaaS\njyRxJQ6rA47pIH3GTajZ3KDWA4aU5Ox/7ZI4Z/YOGvcnBvEslYUYri/FmFz3U5TJ\nRJ3Pfn252QopsFskHcsT+w==\n-----END PRIVATE KEY-----\n".replace(/\\n/g, '\n'),
+    clientEmail:"firebase-adminsdk-639nz@alarma-83d84.iam.gserviceaccount.com",
+  }),
+});
+
+export const firebaseAdmin = admin;
+ 
