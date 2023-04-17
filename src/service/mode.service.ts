@@ -25,8 +25,10 @@ export class ModeService {
             if (istatus.modo == ModoEnum.INTRUSO) {
                 let users = await this.userService.getUsers2();
                 users.forEach(e => {
+                    if(e.status=="DISPONIBLE"){
                         this.sendMailService.sendEMail(e.email, 'Alarma activada, por favor revise');
                         this.sendMailService.sendNotification(e.tokenDevice,"Alarma activada!", 'Por favor revise', 'alert');
+                    }
                 });
             }
 

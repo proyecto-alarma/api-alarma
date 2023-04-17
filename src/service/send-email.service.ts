@@ -13,12 +13,12 @@ export class SendEmailService {
     async sendEMail(email: string, message: string) {
 
         try {
-            // await this.mailservice.sendMail({
-            //     from: process.env.USER_ID,
-            //     to: email,
-            //     subject: "Alarma activada!!!",
-            //     text: message,
-            // })
+            await this.mailservice.sendMail({
+                from: process.env.USER_ID,
+                to: email,
+                subject: "Alarma activada!!!",
+                text: message,
+            })
         } catch (e) {
             console.log(e);
 
