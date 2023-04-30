@@ -28,7 +28,7 @@ export class ModeService {
                     if(e.status=="DISPONIBLE"){
                         this.sendMailService.sendEMail(e.email, 'Alarma activada, por favor revise');
                         this.sendMailService.sendNotification(e.tokenDevice,"Alarma activada!", 'Por favor revise', 'alert');
-                    }
+                    } 
                 });
             }
 

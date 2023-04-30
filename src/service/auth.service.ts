@@ -34,11 +34,13 @@ export class AuthService {
             if (findUser.password !== icredential.password) throw new BadRequestException();
             if(this.isupdatepassword(icredential))return new ResponseBase("UPDATE_PASSWORD", 'Por favor actualice contraseña', {  })
 
-            let token = await this.jwt.create({
-                id: findUser.userId.toString()
-            })
+          
 
-                   await this.userModel.findOneAndUpdate({email:icredential.email},{tokenDevice:icredential.tokenDevice})
+                  let result =  await this.userModel.findOneAndUpdate({email:icredential.email},{tokenDevice:icredential.tokenDevice});
+                   let token =  this.jwt.create({
+                    id: findUser.userId.toString(),
+                    role:result.role,
+                })
             return new ResponseBase("OK", 'Login exitoso', { token })
         } catch (e) {
 
