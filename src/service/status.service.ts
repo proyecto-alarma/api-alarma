@@ -70,8 +70,10 @@ export class StatusService {
         if (diferenciaEnHoras > 10) {
             let users = await this.userService.getUsers2();
             users.forEach(e => {
+                   if(e.status=="DISPONIBLE"){
                     this.sendMailService.sendEMail(e.email, 'Alarma desconectada, por favor revise');
                     this.sendMailService.sendNotification(e.tokenDevice,"Alarma desconectada!", 'Por favor revise','disconnect');
+                   }
             });
 
         }
